@@ -1,45 +1,26 @@
-# reveal.js-menu
+# reveal.js-menu 2
 
 A slideout menu plugin for [Reveal.js](https://github.com/hakimel/reveal.js) to quickly jump to any slide by title. Also optionally change the theme and set the default transition. [Check out the live demo](https://denehyg.github.io/reveal.js-menu)
 
 ## Installation
 
-### Bower
-
-Download and install the package in your project:
-
-```bower install reveal.js-menu```
-
-Add the plugin to the dependencies in your presentation, as below. 
-
-```javascript
-Reveal.initialize({
-	// ...
-	
-	dependencies: [
-		// ... 
-	  
-		{ src: 'bower_components/reveal.js-menu/menu.js' }
-	]
-});
-```
 
 ### npm
 
 Download and install the package in your project:
 
-```npm install --save reveal.js-menu```
+```npm install --save revealjs2-menu```
 
-Add the plugin to the dependencies in your presentation, as below. 
+Add the plugin to the dependencies in your presentation, as below.
 
 ```javascript
 Reveal.initialize({
 	// ...
-	
+
 	dependencies: [
-		// ... 
-	  
-		{ src: 'node_modules/reveal.js-menu/menu.js' }
+		// ...
+
+		{ src: 'node_modules/revealjs2-menu/menu.js' }
 	]
 });
 ```
@@ -48,15 +29,15 @@ Reveal.initialize({
 
 Copy this repository into the plugins folder of your reveal.js presentation, ie ```plugins/menu```.
 
-Add the plugin to the dependencies in your presentation, as below. 
+Add the plugin to the dependencies in your presentation, as below.
 
 ```javascript
 Reveal.initialize({
 	// ...
-	
+
 	dependencies: [
-		// ... 
-	  
+		// ...
+
 		{ src: 'plugin/menu/menu.js' }
 	]
 });
@@ -71,7 +52,7 @@ Reveal.initialize({
 	// ...
 
 	menu: {
-		// Specifies which side of the presentation the menu will 
+		// Specifies which side of the presentation the menu will
 		// be shown. Use 'left' or 'right'.
 		side: 'left',
 
@@ -102,7 +83,7 @@ Reveal.initialize({
 		// Set to 'true' to only list slides with titles.
 		hideMissingTitles: false,
 
-		// Adds markers to the slide titles to indicate the 
+		// Adds markers to the slide titles to indicate the
 		// progress through the presentation. Set to 'false'
 		// to hide the markers.
 		markers: true,
@@ -127,8 +108,8 @@ Reveal.initialize({
 		// Specifies the path to the default theme files. If your
 		// presentation uses a different path to the standard reveal
 		// layout then you need to provide this option, but only
-		// when 'themes' is set to 'true'. If you provide your own 
-		// list of themes or 'themes' is set to 'false' the 
+		// when 'themes' is set to 'true'. If you provide your own
+		// list of themes or 'themes' is set to 'false' the
 		// 'themesPath' option is ignored.
 		themesPath: 'css/theme/',
 
@@ -145,7 +126,7 @@ Reveal.initialize({
 		openButton: true,
 
 		// If 'true' allows the slide number in the presentation to
-		// open the menu panel. The reveal.js slideNumber option must 
+		// open the menu panel. The reveal.js slideNumber option must
 		// be displayed for this to take effect
 		openSlideNumber: false,
 
@@ -158,12 +139,12 @@ Reveal.initialize({
 		// selecting a menu item, or clicking the presentation area.
 		// If 'true', the sticky option will leave the menu open
 		// until it is explicitly closed, that is, using the close
-		// button or pressing the ESC or m key (when the keyboard 
+		// button or pressing the ESC or m key (when the keyboard
 		// interaction option is enabled).
 		sticky: false,
 
 		// If 'true' standard menu items will be automatically opened
-		// when navigating using the keyboard. Note: this only takes 
+		// when navigating using the keyboard. Note: this only takes
 		// effect when both the 'keyboard' and 'sticky' options are enabled.
 		autoOpen: true,
 
@@ -289,7 +270,7 @@ You can provide menu items in your custom panels using the following format. Thi
 </ul>
 ```
 
-You are not limited to linking to presentation slides. You can provide any link you wish. 
+You are not limited to linking to presentation slides. You can provide any link you wish.
 
 ```html
 <h1>External Links</h1>
@@ -320,7 +301,7 @@ The `RevealMenu` object exposes a JavaScript API for controlling the menu:
 |--------------------------|---------------|
 | toggle(event)            | Toggles the open state of the menu, ie open if it is closed, and close if it is open |
 | openMenu(event)          | Opens the menu |
-| closeMenu(event, force)  | Closes the menu. To force the menu to close (ie when `sticky` option is `true`) call `closeMenu(null, true)` | 
+| closeMenu(event, force)  | Closes the menu. To force the menu to close (ie when `sticky` option is `true`) call `closeMenu(null, true)` |
 | openPanel(event, ref)    | Opens the menu to a specific panel, passing the name of the panel or the panel element itself |
 | isOpen()                 | Returns true if the menu is open |
 | init()                   | Initialises the menu if it has not already been initialised. Used in conjunction with the `delayInit` option |
@@ -331,4 +312,4 @@ The `RevealMenu` object exposes a JavaScript API for controlling the menu:
 
 MIT licensed
 
-Copyright (C) 2015 Greg Denehy
+Copyright (C) 2019 Martin Reinhardt
