@@ -4,7 +4,7 @@
  * (c) Greg Denehy 2015
  */
 
-var RevealMenu = window.RevealMenu || (function(){
+var RevealMenu = window.RevealMenu || (function () {
 	var config = Reveal.getConfig();
 	var options = config.menu || {};
 	options.path = options.path || scriptPath() || 'plugin/menu/';
@@ -17,7 +17,7 @@ var RevealMenu = window.RevealMenu || (function(){
 
 	var module = {};
 
-	loadResource(options.path + 'menu.css', 'stylesheet', function() {
+	loadResource(options.path + 'menu.css', 'stylesheet', function () {
 		if (loadIcons) {
 			loadResource(options.path + 'font-awesome/css/all.css', 'stylesheet', loadPlugin)
 		} else {
@@ -71,7 +71,7 @@ var RevealMenu = window.RevealMenu || (function(){
 			var transitions = options.transitions || false;
 			if (transitions === true) {
 				transitions = ['None', 'Fade', 'Slide', 'Convex', 'Concave', 'Zoom'];
-			} else if (transitions !== false && (!Array.isArray(transitions) || !transitions.every(function(e) { return typeof e === "string" }))) {
+			} else if (transitions !== false && (!Array.isArray(transitions) || !transitions.every(function (e) { return typeof e === "string" }))) {
 				console.error("reveal.js-menu error: transitions config value must be 'true' or an array of strings, eg ['None', 'Fade', 'Slide')");
 				transitions = false;
 			}
@@ -114,7 +114,7 @@ var RevealMenu = window.RevealMenu || (function(){
 			function getOffset(el) {
 				var _x = 0;
 				var _y = 0;
-				while(el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
+				while (el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
 					_x += el.offsetLeft - el.scrollLeft;
 					_y += el.offsetTop - el.scrollTop;
 					el = el.offsetParent;
@@ -161,7 +161,7 @@ var RevealMenu = window.RevealMenu || (function(){
 				// opening menu is handled by registering key binding with Reveal below
 				if (isOpen()) {
 					event.stopImmediatePropagation();
-					switch( event.keyCode ) {
+					switch (event.keyCode) {
 						// case 77:
 						// 	closeMenu();
 						// 	break;
@@ -177,7 +177,7 @@ var RevealMenu = window.RevealMenu || (function(){
 						case 75: case 38:
 							var currItem = select('.active-menu-panel .slide-menu-items li.selected') || select('.active-menu-panel .slide-menu-items li.active');
 							if (currItem) {
-								selectAll('.active-menu-panel .slide-menu-items li').forEach(function(item) { item.classList.remove('selected') });
+								selectAll('.active-menu-panel .slide-menu-items li').forEach(function (item) { item.classList.remove('selected') });
 								var nextItem = select('.active-menu-panel .slide-menu-items li[data-item="' + (parseInt(currItem.getAttribute('data-item')) - 1) + '"]') || currItem;
 								selectItem(nextItem);
 							} else {
@@ -189,7 +189,7 @@ var RevealMenu = window.RevealMenu || (function(){
 						case 74: case 40:
 							var currItem = select('.active-menu-panel .slide-menu-items li.selected') || select('.active-menu-panel .slide-menu-items li.active');
 							if (currItem) {
-								selectAll('.active-menu-panel .slide-menu-items li').forEach(function(item) { item.classList.remove('selected') });
+								selectAll('.active-menu-panel .slide-menu-items li').forEach(function (item) { item.classList.remove('selected') });
 								var nextItem = select('.active-menu-panel .slide-menu-items li[data-item="' + (parseInt(currItem.getAttribute('data-item')) + 1) + '"]') || currItem;
 								selectItem(nextItem);
 							} else {
@@ -199,24 +199,24 @@ var RevealMenu = window.RevealMenu || (function(){
 							break;
 						// pageup, u
 						case 33: case 85:
-							var itemsAbove = selectAll('.active-menu-panel .slide-menu-items li').filter(function(item) { return visibleOffset(item) > 0; });
-							var visibleItems = selectAll('.active-menu-panel .slide-menu-items li').filter(function(item) { return visibleOffset(item) == 0; });
+							var itemsAbove = selectAll('.active-menu-panel .slide-menu-items li').filter(function (item) { return visibleOffset(item) > 0; });
+							var visibleItems = selectAll('.active-menu-panel .slide-menu-items li').filter(function (item) { return visibleOffset(item) == 0; });
 
-							var firstVisible = (itemsAbove.length > 0 && Math.abs(visibleOffset(itemsAbove[itemsAbove.length-1])) < itemsAbove[itemsAbove.length-1].clientHeight ? itemsAbove[itemsAbove.length-1] : visibleItems[0]);
+							var firstVisible = (itemsAbove.length > 0 && Math.abs(visibleOffset(itemsAbove[itemsAbove.length - 1])) < itemsAbove[itemsAbove.length - 1].clientHeight ? itemsAbove[itemsAbove.length - 1] : visibleItems[0]);
 							if (firstVisible) {
 								if (firstVisible.classList.contains('selected') && itemsAbove.length > 0) {
 									// at top of viewport already, page scroll (if not at start)
 									// ...move selected item to bottom, and change selection to last fully visible item at top
 									scrollItemToBottom(firstVisible);
-									visibleItems = selectAll('.active-menu-panel .slide-menu-items li').filter(function(item) { return visibleOffset(item) == 0; });
+									visibleItems = selectAll('.active-menu-panel .slide-menu-items li').filter(function (item) { return visibleOffset(item) == 0; });
 									if (visibleItems[0] == firstVisible) {
 										// prev item is still beyond the viewport (for custom panels)
-										firstVisible = itemsAbove[itemsAbove.length-1];
+										firstVisible = itemsAbove[itemsAbove.length - 1];
 									} else {
 										firstVisible = visibleItems[0];
 									}
 								}
-								selectAll('.active-menu-panel .slide-menu-items li').forEach(function(item) { item.classList.remove('selected') });
+								selectAll('.active-menu-panel .slide-menu-items li').forEach(function (item) { item.classList.remove('selected') });
 								selectItem(firstVisible);
 								// ensure selected item is positioned at the top of the viewport
 								scrollItemToTop(firstVisible);
@@ -224,24 +224,24 @@ var RevealMenu = window.RevealMenu || (function(){
 							break;
 						// pagedown, d
 						case 34: case 68:
-							var visibleItems = selectAll('.active-menu-panel .slide-menu-items li').filter(function(item) { return visibleOffset(item) == 0; });
-							var itemsBelow = selectAll('.active-menu-panel .slide-menu-items li').filter(function(item) { return visibleOffset(item) < 0; });
+							var visibleItems = selectAll('.active-menu-panel .slide-menu-items li').filter(function (item) { return visibleOffset(item) == 0; });
+							var itemsBelow = selectAll('.active-menu-panel .slide-menu-items li').filter(function (item) { return visibleOffset(item) < 0; });
 
-							var lastVisible = (itemsBelow.length > 0 && Math.abs(visibleOffset(itemsBelow[0])) < itemsBelow[0].clientHeight ? itemsBelow[0] : visibleItems[visibleItems.length-1]);
+							var lastVisible = (itemsBelow.length > 0 && Math.abs(visibleOffset(itemsBelow[0])) < itemsBelow[0].clientHeight ? itemsBelow[0] : visibleItems[visibleItems.length - 1]);
 							if (lastVisible) {
 								if (lastVisible.classList.contains('selected') && itemsBelow.length > 0) {
 									// at bottom of viewport already, page scroll (if not at end)
 									// ...move selected item to top, and change selection to last fully visible item at bottom
 									scrollItemToTop(lastVisible);
-									visibleItems = selectAll('.active-menu-panel .slide-menu-items li').filter(function(item) { return visibleOffset(item) == 0; });
-									if (visibleItems[visibleItems.length-1] == lastVisible) {
+									visibleItems = selectAll('.active-menu-panel .slide-menu-items li').filter(function (item) { return visibleOffset(item) == 0; });
+									if (visibleItems[visibleItems.length - 1] == lastVisible) {
 										// next item is still beyond the viewport (for custom panels)
 										lastVisible = itemsBelow[0];
 									} else {
-										lastVisible = visibleItems[visibleItems.length-1];
+										lastVisible = visibleItems[visibleItems.length - 1];
 									}
 								}
-								selectAll('.active-menu-panel .slide-menu-items li').forEach(function(item) { item.classList.remove('selected') });
+								selectAll('.active-menu-panel .slide-menu-items li').forEach(function (item) { item.classList.remove('selected') });
 								selectItem(lastVisible);
 								// ensure selected item is positioned at the bottom of the viewport
 								scrollItemToBottom(lastVisible);
@@ -249,7 +249,7 @@ var RevealMenu = window.RevealMenu || (function(){
 							break;
 						// home
 						case 36:
-							selectAll('.active-menu-panel .slide-menu-items li').forEach(function(item) { item.classList.remove('selected') });
+							selectAll('.active-menu-panel .slide-menu-items li').forEach(function (item) { item.classList.remove('selected') });
 							var item = select('.active-menu-panel .slide-menu-items li:first-of-type');
 							if (item) {
 								item.classList.add('selected');
@@ -258,7 +258,7 @@ var RevealMenu = window.RevealMenu || (function(){
 							break;
 						// end
 						case 35:
-							selectAll('.active-menu-panel .slide-menu-items li').forEach(function(item) { item.classList.remove('selected') });
+							selectAll('.active-menu-panel .slide-menu-items li').forEach(function (item) { item.classList.remove('selected') });
 							var item = select('.active-menu-panel .slide-menu-items:last-of-type li:last-of-type');
 							if (item) {
 								item.classList.add('selected');
@@ -284,14 +284,14 @@ var RevealMenu = window.RevealMenu || (function(){
 				document.addEventListener('keydown', onDocumentKeyDown, false);
 
 				// handle key presses within speaker notes
-				window.addEventListener( 'message', function( event ) {
+				window.addEventListener('message', function (event) {
 					var data;
 					try {
-						data = JSON.parse( event.data );
+						data = JSON.parse(event.data);
 					} catch (e) {
 					}
 					if (data && data.method === 'triggerKey') {
-						onDocumentKeyDown( { keyCode: data.args[0], stopImmediatePropagation: function() {} } );
+						onDocumentKeyDown({ keyCode: data.args[0], stopImmediatePropagation: function () { } });
 					}
 				});
 
@@ -299,11 +299,11 @@ var RevealMenu = window.RevealMenu || (function(){
 				if (config.keyboardCondition && typeof config.keyboardCondition === 'function') {
 					// combine user defined keyboard condition with the menu's own condition
 					var userCondition = config.keyboardCondition;
-					config.keyboardCondition = function(event) {
+					config.keyboardCondition = function (event) {
 						return userCondition(event) && (!isOpen() || event.keyCode == 77);
 					};
 				} else {
-					config.keyboardCondition = function(event) {
+					config.keyboardCondition = function (event) {
 						return !isOpen() || event.keyCode == 77;
 					}
 				}
@@ -318,25 +318,25 @@ var RevealMenu = window.RevealMenu || (function(){
 				if (event) event.preventDefault();
 				if (!isOpen()) {
 					select('body').classList.add('slide-menu-active');
-				    select('.reveal').classList.add('has-' + options.effect + '-' + side);
-				    select('.slide-menu').classList.add('active');
-				    select('.slide-menu-overlay').classList.add('active');
+					select('.reveal').classList.add('has-' + options.effect + '-' + side);
+					select('.slide-menu').classList.add('active');
+					select('.slide-menu-overlay').classList.add('active');
 
 					// identify active theme
 					if (themes) {
-						selectAll('div[data-panel="Themes"] li').forEach(function(i) { i.classList.remove('active') });
-						selectAll('li[data-theme="' + select('link#theme').getAttribute('href') + '"]').forEach(function(i) { i.classList.add('active') });
+						selectAll('div[data-panel="Themes"] li').forEach(function (i) { i.classList.remove('active') });
+						selectAll('li[data-theme="' + select('link#theme').getAttribute('href') + '"]').forEach(function (i) { i.classList.add('active') });
 					}
 
 					// identify active transition
 					if (transitions) {
-						selectAll('div[data-panel="Transitions"] li').forEach(function(i) { i.classList.remove('active') });
-						selectAll('li[data-transition="' + Reveal.getConfig().transition + '"]').forEach(function(i) { i.classList.add('active') });
+						selectAll('div[data-panel="Transitions"] li').forEach(function (i) { i.classList.remove('active') });
+						selectAll('li[data-transition="' + Reveal.getConfig().transition + '"]').forEach(function (i) { i.classList.add('active') });
 					}
 
-				    // set item selections to match active items
+					// set item selections to match active items
 					var items = selectAll('.slide-menu-panel li.active')
-					items.forEach(function(i) {
+					items.forEach(function (i) {
 						i.classList.add('selected');
 						keepVisible(i);
 					});
@@ -350,7 +350,7 @@ var RevealMenu = window.RevealMenu || (function(){
 					select('.reveal').classList.remove('has-' + options.effect + '-' + side);
 					select('.slide-menu').classList.remove('active');
 					select('.slide-menu-overlay').classList.remove('active');
-					selectAll('.slide-menu-panel li.selected').forEach(function(i) { i.classList.remove('selected') });
+					selectAll('.slide-menu-panel li.selected').forEach(function (i) { i.classList.remove('selected') });
 				}
 			}
 
@@ -409,7 +409,7 @@ var RevealMenu = window.RevealMenu || (function(){
 
 					var newStylesheet = stylesheet.cloneNode();
 					newStylesheet.setAttribute('href', theme);
-					newStylesheet.onload = function() { matchRevealStyle() };
+					newStylesheet.onload = function () { matchRevealStyle() };
 					parent.insertBefore(newStylesheet, sibling);
 
 					closeMenu();
@@ -436,7 +436,7 @@ var RevealMenu = window.RevealMenu || (function(){
 
 			function highlightCurrentSlide() {
 				var state = Reveal.getState();
-				selectAll('li.slide-menu-item, li.slide-menu-item-vertical').forEach(function(item) {
+				selectAll('li.slide-menu-item, li.slide-menu-item-vertical').forEach(function (item) {
 					item.classList.remove('past');
 					item.classList.remove('active');
 					item.classList.remove('future');
@@ -465,347 +465,349 @@ var RevealMenu = window.RevealMenu || (function(){
 			var buttons = 0;
 			function init() {
 				if (!initialised) {
-					var parent = select('.reveal').parentElement;
-					var top = create('div', { 'class': 'slide-menu-wrapper'});
-					parent.appendChild(top);
-					var panels = create('nav', { 'class': 'slide-menu slide-menu--' + side});
-					if (typeof width === 'string') {
-						if (['normal', 'wide', 'third', 'half', 'full'].indexOf(width) != -1) {
-							panels.classList.add('slide-menu--' + width);
-						}
-						else {
-							panels.classList.add('slide-menu--custom');
-							panels.style.width = width;
-						}
-					}
-					top.appendChild(panels);
-					matchRevealStyle();
-					var overlay = create('div', { 'class': 'slide-menu-overlay'});
-					top.appendChild(overlay);
-					overlay.onclick = function() { closeMenu(null, true) };
-
-					var toolbar = create('ol', {'class': 'slide-menu-toolbar'});
-					select('.slide-menu').appendChild(toolbar);
-
-					function addToolbarButton(title, ref, icon, style, fn, active) {
-						var attrs = {
-							'data-button': '' + (buttons++),
-							'class': 'toolbar-panel-button' + (active ? ' active-toolbar-button' : '')
-						};
-						if (ref) {
-							attrs['data-panel'] = ref;
-						}
-						var button = create('li', attrs);
-
-						if (icon.startsWith('fa-')) {
-							button.appendChild(create('i', {'class': style + ' ' + icon}));
-						} else {
-							button.innerHTML = icon + '</i>';
-						}
-						button.appendChild(create('br'), select('i', button));
-						button.appendChild(create('span', {'class': 'slide-menu-toolbar-label'}, title), select('i', button));
-						button.onclick = fn;
-						toolbar.appendChild(button);
-						return button;
-					}
-
-					addToolbarButton('Slides', 'Slides', 'fa-images', 'fas', openPanel, true);
-
-					if (custom) {
-						custom.forEach(function(element, index, array) {
-							addToolbarButton(element.title, 'Custom' + index, element.icon, null, openPanel);
-						});
-					}
-
-					if (themes) {
-						addToolbarButton('Themes', 'Themes', 'fa-adjust', 'fas', openPanel);
-					}
-					if (transitions) {
-						addToolbarButton('Transitions', 'Transitions', 'fa-sticky-note', 'fas', openPanel);
-					}
-					button = create('li', {id: 'close', 'class': 'toolbar-panel-button'});
-					button.appendChild(create('i', {'class': 'fas fa-times'}));
-					button.appendChild(create('br'));
-					button.appendChild(create('span', {'class': 'slide-menu-toolbar-label'}, 'Close'));
-					button.onclick = function() { closeMenu(null, true) };
-					toolbar.appendChild(button);
-
-					//
-					// Slide links
-					//
-					function generateItem(type, section, i, h, v) {
-						var link = '/#/' + h;
-						if (typeof v === 'number' && !isNaN( v )) link += '/' + v;
-
-						function text(selector, parent) {
-							var el = (parent ? select(selector, section) : select(selector));
-							if (el) return el.textContent;
-							return null;
-						}
-						var title = section.getAttribute('data-menu-title') ||
-							text('.menu-title', section) ||
-							text(titleSelector, section);
-
-						if (!title && useTextContentForMissingTitles) {
-							// attempt to figure out a title based on the text in the slide
-							title = section.textContent.trim();
-							if (title) {
-								title = title.split('\n')
-									.map(function(t) { return t.trim() }).join(' ').trim()
-									.replace(/^(.{16}[^\s]*).*/, "$1") // limit to 16 chars plus any consecutive non-whitespace chars (to avoid breaking words)
-									.replace(/&/g, "&amp;")
-									.replace(/</g, "&lt;")
-									.replace(/>/g, "&gt;")
-									.replace(/"/g, "&quot;")
-									.replace(/'/g, "&#039;") + '...';
+					document.addEventListener('DOMContentLoaded', (event) => {
+						var parent = select('.reveal').parentElement;
+						var top = create('div', { 'class': 'slide-menu-wrapper' });
+						parent.appendChild(top);
+						var panels = create('nav', { 'class': 'slide-menu slide-menu--' + side });
+						if (typeof width === 'string') {
+							if (['normal', 'wide', 'third', 'half', 'full'].indexOf(width) != -1) {
+								panels.classList.add('slide-menu--' + width);
+							}
+							else {
+								panels.classList.add('slide-menu--custom');
+								panels.style.width = width;
 							}
 						}
+						top.appendChild(panels);
+						matchRevealStyle();
+						var overlay = create('div', { 'class': 'slide-menu-overlay' });
+						top.appendChild(overlay);
+						overlay.onclick = function () { closeMenu(null, true) };
 
-						if (!title) {
-							if (hideMissingTitles) return '';
-							type += ' no-title';
-							title = "Slide " + i;
+						var toolbar = create('ol', { 'class': 'slide-menu-toolbar' });
+						select('.slide-menu').appendChild(toolbar);
+
+						function addToolbarButton(title, ref, icon, style, fn, active) {
+							var attrs = {
+								'data-button': '' + (buttons++),
+								'class': 'toolbar-panel-button' + (active ? ' active-toolbar-button' : '')
+							};
+							if (ref) {
+								attrs['data-panel'] = ref;
+							}
+							var button = create('li', attrs);
+
+							if (icon.startsWith('fa-')) {
+								button.appendChild(create('i', { 'class': style + ' ' + icon }));
+							} else {
+								button.innerHTML = icon + '</i>';
+							}
+							button.appendChild(create('br'), select('i', button));
+							button.appendChild(create('span', { 'class': 'slide-menu-toolbar-label' }, title), select('i', button));
+							button.onclick = fn;
+							toolbar.appendChild(button);
+							return button;
 						}
 
-						var item = create('li', {
-							class: type,
-							'data-item': i,
-							'data-slide-h': h,
-							'data-slide-v': (v === undefined ? 0 : v)
-						});
+						addToolbarButton('Slides', 'Slides', 'fa-images', 'fas', openPanel, true);
 
-						if (markers) {
-							item.appendChild(create('i', {class: 'fas fa-check-circle fa-fw past'}));
-							item.appendChild(create('i', {class: 'fas fa-arrow-alt-circle-right fa-fw active'}));
-							item.appendChild(create('i', {class: 'far fa-circle fa-fw future'}));
-						}
-
-						if (numbers) {
-							// Number formatting taken from reveal.js
-							var value = [];
-							var format = 'h.v';
-
-							// Check if a custom number format is available
-							if( typeof numbers === 'string' ) {
-								format = numbers;
-							}
-							else if (typeof config.slideNumber === 'string') {
-								// Take user defined number format for slides
-								format = config.slideNumber;
-							}
-
-							switch( format ) {
-								case 'c':
-									value.push( i );
-									break;
-								case 'c/t':
-									value.push( i, '/', Reveal.getTotalSlides() );
-									break;
-								case 'h/v':
-									value.push( h + 1 );
-									if( typeof v === 'number' && !isNaN( v ) ) value.push( '/', v + 1 );
-									break;
-								default:
-									value.push( h + 1 );
-									if( typeof v === 'number' && !isNaN( v ) ) value.push( '.', v + 1 );
-							}
-
-							item.appendChild(create('span', {class: 'slide-menu-item-number'}, value.join('') + '. '));
-						}
-
-						item.appendChild(create('span', {class: 'slide-menu-item-title'}, title));
-
-						return item;
-					}
-
-					function createSlideMenu() {
-						if ( !document.querySelector('section[data-markdown]:not([data-markdown-parsed])') ) {
-							var panel = create('div', {
-								'data-panel': 'Slides',
-								'class': 'slide-menu-panel active-menu-panel'
+						if (custom) {
+							custom.forEach(function (element, index, array) {
+								addToolbarButton(element.title, 'Custom' + index, element.icon, null, openPanel);
 							});
-							panel.appendChild(create('ul', {class: "slide-menu-items"}));
-							panels.appendChild(panel);
-							var items = select('.slide-menu-panel[data-panel="Slides"] > .slide-menu-items');
-							var slideCount = 0;
-							selectAll('.slides > section').forEach(function(section, h) {
-								var subsections = selectAll('section', section);
-								if (subsections.length > 0) {
-									subsections.forEach(function(subsection, count) {
-										var item;
-										if (count === 0) {
-											item = generateItem('slide-menu-item', section, slideCount, h);
-										} else {
-										    if (count >0 ){
-												item = generateItem('slide-menu-item-vertical', subsection, slideCount, h, count);
+						}
+
+						if (themes) {
+							addToolbarButton('Themes', 'Themes', 'fa-adjust', 'fas', openPanel);
+						}
+						if (transitions) {
+							addToolbarButton('Transitions', 'Transitions', 'fa-sticky-note', 'fas', openPanel);
+						}
+						button = create('li', { id: 'close', 'class': 'toolbar-panel-button' });
+						button.appendChild(create('i', { 'class': 'fas fa-times' }));
+						button.appendChild(create('br'));
+						button.appendChild(create('span', { 'class': 'slide-menu-toolbar-label' }, 'Close'));
+						button.onclick = function () { closeMenu(null, true) };
+						toolbar.appendChild(button);
+
+						//
+						// Slide links
+						//
+						function generateItem(type, section, i, h, v) {
+							var link = '/#/' + h;
+							if (typeof v === 'number' && !isNaN(v)) link += '/' + v;
+
+							function text(selector, parent) {
+								var el = (parent ? select(selector, section) : select(selector));
+								if (el) return el.textContent;
+								return null;
+							}
+							var title = section.getAttribute('data-menu-title') ||
+								text('.menu-title', section) ||
+								text(titleSelector, section);
+
+							if (!title && useTextContentForMissingTitles) {
+								// attempt to figure out a title based on the text in the slide
+								title = section.textContent.trim();
+								if (title) {
+									title = title.split('\n')
+										.map(function (t) { return t.trim() }).join(' ').trim()
+										.replace(/^(.{16}[^\s]*).*/, "$1") // limit to 16 chars plus any consecutive non-whitespace chars (to avoid breaking words)
+										.replace(/&/g, "&amp;")
+										.replace(/</g, "&lt;")
+										.replace(/>/g, "&gt;")
+										.replace(/"/g, "&quot;")
+										.replace(/'/g, "&#039;") + '...';
+								}
+							}
+
+							if (!title) {
+								if (hideMissingTitles) return '';
+								type += ' no-title';
+								title = "Slide " + i;
+							}
+
+							var item = create('li', {
+								class: type,
+								'data-item': i,
+								'data-slide-h': h,
+								'data-slide-v': (v === undefined ? 0 : v)
+							});
+
+							if (markers) {
+								item.appendChild(create('i', { class: 'fas fa-check-circle fa-fw past' }));
+								item.appendChild(create('i', { class: 'fas fa-arrow-alt-circle-right fa-fw active' }));
+								item.appendChild(create('i', { class: 'far fa-circle fa-fw future' }));
+							}
+
+							if (numbers) {
+								// Number formatting taken from reveal.js
+								var value = [];
+								var format = 'h.v';
+
+								// Check if a custom number format is available
+								if (typeof numbers === 'string') {
+									format = numbers;
+								}
+								else if (typeof config.slideNumber === 'string') {
+									// Take user defined number format for slides
+									format = config.slideNumber;
+								}
+
+								switch (format) {
+									case 'c':
+										value.push(i);
+										break;
+									case 'c/t':
+										value.push(i, '/', Reveal.getTotalSlides());
+										break;
+									case 'h/v':
+										value.push(h + 1);
+										if (typeof v === 'number' && !isNaN(v)) value.push('/', v + 1);
+										break;
+									default:
+										value.push(h + 1);
+										if (typeof v === 'number' && !isNaN(v)) value.push('.', v + 1);
+								}
+
+								item.appendChild(create('span', { class: 'slide-menu-item-number' }, value.join('') + '. '));
+							}
+
+							item.appendChild(create('span', { class: 'slide-menu-item-title' }, title));
+
+							return item;
+						}
+
+						function createSlideMenu() {
+							if (!document.querySelector('section[data-markdown]:not([data-markdown-parsed])')) {
+								var panel = create('div', {
+									'data-panel': 'Slides',
+									'class': 'slide-menu-panel active-menu-panel'
+								});
+								panel.appendChild(create('ul', { class: "slide-menu-items" }));
+								panels.appendChild(panel);
+								var items = select('.slide-menu-panel[data-panel="Slides"] > .slide-menu-items');
+								var slideCount = 0;
+								selectAll('.slides > section').forEach(function (section, h) {
+									var subsections = selectAll('section', section);
+									if (subsections.length > 0) {
+										subsections.forEach(function (subsection, count) {
+											var item;
+											if (count === 0) {
+												item = generateItem('slide-menu-item', section, slideCount, h);
+											} else {
+												if (count > 0) {
+													item = generateItem('slide-menu-item-vertical', subsection, slideCount, h, count - 1);
+												}
 											}
-										}
+											if (item) {
+												slideCount++;
+												items.appendChild(item);
+											}
+										});
+									} else {
+										var item = generateItem('slide-menu-item', section, slideCount, h);
 										if (item) {
 											slideCount++;
 											items.appendChild(item);
 										}
-									});
-								} else {
-									var item = generateItem('slide-menu-item', section, slideCount, h);
-									if (item) {
-										slideCount++;
-										items.appendChild(item);
 									}
-								}
-							});
-							selectAll('.slide-menu-item, .slide-menu-item-vertical').forEach(function(i) {
-								i.onclick = clicked;
-							});
-							highlightCurrentSlide();
-						}
-						else {
-						// wait for markdown to be loaded and parsed
-							setTimeout( createSlideMenu, 100 );
-						}
-					}
-
-					createSlideMenu();
-					Reveal.addEventListener('slidechanged', highlightCurrentSlide);
-
-					//
-					// Custom menu panels
-					//
-					if (custom) {
-						function xhrSuccess () {
-							if (this.status >= 200 && this.status < 300) {
-								this.panel.innerHTML = this.responseText;
-								enableCustomLinks(this.panel);
+								});
+								selectAll('.slide-menu-item, .slide-menu-item-vertical').forEach(function (i) {
+									i.onclick = clicked;
+								});
+								highlightCurrentSlide();
 							}
 							else {
+								// wait for markdown to be loaded and parsed
+								setTimeout(createSlideMenu, 100);
+							}
+						}
+
+						createSlideMenu();
+						Reveal.addEventListener('slidechanged', highlightCurrentSlide);
+
+						//
+						// Custom menu panels
+						//
+						if (custom) {
+							function xhrSuccess() {
+								if (this.status >= 200 && this.status < 300) {
+									this.panel.innerHTML = this.responseText;
+									enableCustomLinks(this.panel);
+								}
+								else {
+									showErrorMsg(this)
+								}
+							}
+							function xhrError() {
 								showErrorMsg(this)
 							}
-						}
-						function xhrError () {
-							showErrorMsg(this)
-						}
-						function loadCustomPanelContent (panel, sURL) {
-							var oReq = new XMLHttpRequest();
-							oReq.panel = panel;
-							oReq.arguments = Array.prototype.slice.call(arguments, 2);
-							oReq.onload = xhrSuccess;
-							oReq.onerror = xhrError;
-							oReq.open("get", sURL, true);
-							oReq.send(null);
-						}
-						function enableCustomLinks(panel) {
-							selectAll('ul.slide-menu-items li.slide-menu-item', panel).forEach(function(item, i) {
-								item.setAttribute('data-item', i+1);
-								item.onclick = clicked;
-								item.addEventListener("mouseenter", handleMouseHighlight);
-							});
-						}
+							function loadCustomPanelContent(panel, sURL) {
+								var oReq = new XMLHttpRequest();
+								oReq.panel = panel;
+								oReq.arguments = Array.prototype.slice.call(arguments, 2);
+								oReq.onload = xhrSuccess;
+								oReq.onerror = xhrError;
+								oReq.open("get", sURL, true);
+								oReq.send(null);
+							}
+							function enableCustomLinks(panel) {
+								selectAll('ul.slide-menu-items li.slide-menu-item', panel).forEach(function (item, i) {
+									item.setAttribute('data-item', i + 1);
+									item.onclick = clicked;
+									item.addEventListener("mouseenter", handleMouseHighlight);
+								});
+							}
 
-						function showErrorMsg(response) {
-							var msg = '<p>ERROR: The attempt to fetch ' + response.responseURL + ' failed with HTTP status ' +
-								response.status + ' (' + response.statusText + ').</p>' +
-								'<p>Remember that you need to serve the presentation HTML from a HTTP server.</p>';
+							function showErrorMsg(response) {
+								var msg = '<p>ERROR: The attempt to fetch ' + response.responseURL + ' failed with HTTP status ' +
+									response.status + ' (' + response.statusText + ').</p>' +
+									'<p>Remember that you need to serve the presentation HTML from a HTTP server.</p>';
 								response.panel.innerHTML = msg;
+							}
+
+							custom.forEach(function (element, index, array) {
+								var panel = create('div', {
+									'data-panel': 'Custom' + index,
+									class: 'slide-menu-panel slide-menu-custom-panel'
+								});
+								if (element.content) {
+									panel.innerHTML = element.content;
+									enableCustomLinks(panel);
+								}
+								else if (element.src) {
+									loadCustomPanelContent(panel, element.src);
+								}
+								panels.appendChild(panel);
+							})
 						}
 
-						custom.forEach(function(element, index, array) {
+						//
+						// Themes
+						//
+						if (themes) {
 							var panel = create('div', {
-								'data-panel': 'Custom' + index,
-								class: 'slide-menu-panel slide-menu-custom-panel'
+								class: 'slide-menu-panel',
+								'data-panel': 'Themes'
 							});
-							if (element.content) {
-								panel.innerHTML = element.content;
-								enableCustomLinks(panel);
-							}
-							else if (element.src) {
-								loadCustomPanelContent(panel, element.src);
-							}
 							panels.appendChild(panel);
-						})
-					}
-
-					//
-					// Themes
-					//
-					if (themes) {
-						var panel = create('div', {
-							class: 'slide-menu-panel',
-							'data-panel': 'Themes'
-						});
-						panels.appendChild(panel);
-						var menu = create('ul', {class: 'slide-menu-items'});
-						panel.appendChild(menu);
-						themes.forEach(function(t, i) {
-							var item = create('li', {
-								class: 'slide-menu-item',
-								'data-theme': t.theme,
-								'data-item': ''+(i+1)
-							 }, t.name);
-							 menu.appendChild(item);
-							 item.onclick = clicked;
-						})
-					}
-
-					//
-					// Transitions
-					//
-					if (transitions) {
-						var panel = create('div', {
-							class: 'slide-menu-panel',
-							'data-panel': 'Transitions'
-						});
-						panels.appendChild(panel);
-						var menu = create('ul', {class: 'slide-menu-items'});
-						panel.appendChild(menu);
-						transitions.forEach(function(name, i) {
-							var item = create('li', {
-								class: 'slide-menu-item',
-								'data-transition': name.toLowerCase(),
-								'data-item': ''+(i+1)
-							}, name);
-							menu.appendChild(item);
-							item.onclick = clicked;
-						})
-					}
-
-					//
-					// Open menu options
-					//
-					if (openButton) {
-						// add menu button
-						var div = create('div', {class: 'slide-menu-button'});
-						var link = create('a', {href: '#'});
-						link.appendChild(create('i', {class: 'fas fa-bars'}));
-						div.appendChild(link);
-						select('.reveal').appendChild(div);
-						div.onclick = openMenu;
-					}
-
-					if (openSlideNumber) {
-						// wrap slide number in link
-						var slideNumber = select('div.slide-number');
-						var wrapper = create('div', {class: 'slide-number-wrapper'});
-						var link = create('a', {href: '#'});
-						wrapper.appendChild(link);
-						slideNumber.parentElement.insertBefore(wrapper, slideNumber);
-						link.appendChild(slideNumber);
-						link.onclick = openMenu;
-					}
-
-					//
-					// Handle mouse overs
-					//
-					selectAll('.slide-menu-panel .slide-menu-items li').forEach(function(item) {
-						item.addEventListener("mouseenter", handleMouseHighlight);
-					});
-
-					function handleMouseHighlight(event) {
-						if (mouseSelectionEnabled) {
-							selectAll('.active-menu-panel .slide-menu-items li.selected').forEach(function(i) {
-								i.classList.remove('selected');
-							});
-							event.currentTarget.classList.add('selected');
+							var menu = create('ul', { class: 'slide-menu-items' });
+							panel.appendChild(menu);
+							themes.forEach(function (t, i) {
+								var item = create('li', {
+									class: 'slide-menu-item',
+									'data-theme': t.theme,
+									'data-item': '' + (i + 1)
+								}, t.name);
+								menu.appendChild(item);
+								item.onclick = clicked;
+							})
 						}
-					}
+
+						//
+						// Transitions
+						//
+						if (transitions) {
+							var panel = create('div', {
+								class: 'slide-menu-panel',
+								'data-panel': 'Transitions'
+							});
+							panels.appendChild(panel);
+							var menu = create('ul', { class: 'slide-menu-items' });
+							panel.appendChild(menu);
+							transitions.forEach(function (name, i) {
+								var item = create('li', {
+									class: 'slide-menu-item',
+									'data-transition': name.toLowerCase(),
+									'data-item': '' + (i + 1)
+								}, name);
+								menu.appendChild(item);
+								item.onclick = clicked;
+							})
+						}
+
+						//
+						// Open menu options
+						//
+						if (openButton) {
+							// add menu button
+							var div = create('div', { class: 'slide-menu-button' });
+							var link = create('a', { href: '#' });
+							link.appendChild(create('i', { class: 'fas fa-bars' }));
+							div.appendChild(link);
+							select('.reveal').appendChild(div);
+							div.onclick = openMenu;
+						}
+
+						if (openSlideNumber) {
+							// wrap slide number in link
+							var slideNumber = select('div.slide-number');
+							var wrapper = create('div', { class: 'slide-number-wrapper' });
+							var link = create('a', { href: '#' });
+							wrapper.appendChild(link);
+							slideNumber.parentElement.insertBefore(wrapper, slideNumber);
+							link.appendChild(slideNumber);
+							link.onclick = openMenu;
+						}
+
+						//
+						// Handle mouse overs
+						//
+						selectAll('.slide-menu-panel .slide-menu-items li').forEach(function (item) {
+							item.addEventListener("mouseenter", handleMouseHighlight);
+						});
+
+						function handleMouseHighlight(event) {
+							if (mouseSelectionEnabled) {
+								selectAll('.active-menu-panel .slide-menu-items li.selected').forEach(function (i) {
+									i.classList.remove('selected');
+								});
+								event.currentTarget.classList.add('selected');
+							}
+						}
+					});
 				}
 				if (openOnInit) {
 					openMenu();
@@ -819,7 +821,7 @@ var RevealMenu = window.RevealMenu || (function(){
 			module.openPanel = openPanel;
 			module.isOpen = isOpen;
 			module.init = init;
-			module.isInit = function() { return initialised };
+			module.isInit = function () { return initialised };
 
 			if (!delayInit) {
 				init();
@@ -829,9 +831,9 @@ var RevealMenu = window.RevealMenu || (function(){
 			 * Extend object a with the properties of object b.
 			 * If there's a conflict, object b takes precedence.
 			 */
-			function extend( a, b ) {
-				for( var i in b ) {
-					a[ i ] = b[ i ];
+			function extend(a, b) {
+				for (var i in b) {
+					a[i] = b[i];
 				}
 			}
 
@@ -839,20 +841,20 @@ var RevealMenu = window.RevealMenu || (function(){
 			 * Dispatches an event of the specified type from the
 			 * reveal DOM element.
 			 */
-			function dispatchEvent( type, args ) {
-				var event = document.createEvent( 'HTMLEvents', 1, 2 );
-				event.initEvent( type, true, true );
-				extend( event, args );
-				document.querySelector('.reveal').dispatchEvent( event );
+			function dispatchEvent(type, args) {
+				var event = document.createEvent('HTMLEvents', 1, 2);
+				event.initEvent(type, true, true);
+				extend(event, args);
+				document.querySelector('.reveal').dispatchEvent(event);
 
 				// If we're in an iframe, post each reveal.js event to the
 				// parent window. Used by the notes plugin
-				if( config.postMessageEvents && window.parent !== window.self ) {
-					window.parent.postMessage( JSON.stringify({ namespace: 'reveal', eventName: type, state: Reveal.getState() }), '*' );
+				if (config.postMessageEvents && window.parent !== window.self) {
+					window.parent.postMessage(JSON.stringify({ namespace: 'reveal', eventName: type, state: Reveal.getState() }), '*');
 				}
 			}
 
-			Reveal.addKeyBinding({keyCode: 77, key: 'M', description: 'Toggle menu'}, toggleMenu);
+			Reveal.addKeyBinding({ keyCode: 77, key: 'M', description: 'Toggle menu' }, toggleMenu);
 
 			dispatchEvent('menu-ready');
 		}
@@ -875,7 +877,7 @@ var RevealMenu = window.RevealMenu || (function(){
 	function create(tagName, attrs, content) {
 		var el = document.createElement(tagName);
 		if (attrs) {
-			Object.getOwnPropertyNames(attrs).forEach(function(n) {
+			Object.getOwnPropertyNames(attrs).forEach(function (n) {
 				el.setAttribute(n, attrs[n]);
 			});
 		}
@@ -884,24 +886,24 @@ var RevealMenu = window.RevealMenu || (function(){
 	}
 
 	// modified from math plugin
-	function loadResource( url, type, callback ) {
-		var head = document.querySelector( 'head' );
+	function loadResource(url, type, callback) {
+		var head = document.querySelector('head');
 		var resource;
 
-		if ( type === 'script' ) {
-			resource = document.createElement( 'script' );
+		if (type === 'script') {
+			resource = document.createElement('script');
 			resource.type = 'text/javascript';
 			resource.src = url;
 		}
-		else if ( type === 'stylesheet' ) {
-			resource = document.createElement( 'link' );
+		else if (type === 'stylesheet') {
+			resource = document.createElement('link');
 			resource.rel = 'stylesheet';
 			resource.href = url;
 		}
 
 		// Wrapper for callback to make sure it only fires once
-		var finish = function() {
-			if( typeof callback === 'function' ) {
+		var finish = function () {
+			if (typeof callback === 'function') {
 				callback.call();
 				callback = null;
 			}
@@ -910,14 +912,14 @@ var RevealMenu = window.RevealMenu || (function(){
 		resource.onload = finish;
 
 		// IE
-		resource.onreadystatechange = function() {
-			if ( this.readyState === 'loaded' ) {
+		resource.onreadystatechange = function () {
+			if (this.readyState === 'loaded') {
 				finish();
 			}
 		}
 
 		// Normal browsers
-		head.appendChild( resource );
+		head.appendChild(resource);
 	}
 
 	function scriptPath() {
@@ -936,12 +938,12 @@ var RevealMenu = window.RevealMenu || (function(){
 
 	// polyfill
 	if (!String.prototype.startsWith) {
-		String.prototype.startsWith = function(searchString, position){
-		  return this.substr(position || 0, searchString.length) === searchString;
-	  };
+		String.prototype.startsWith = function (searchString, position) {
+			return this.substr(position || 0, searchString.length) === searchString;
+		};
 	}
 	if (!String.prototype.endsWith) {
-		String.prototype.endsWith = function(search, this_len) {
+		String.prototype.endsWith = function (search, this_len) {
 			if (this_len === undefined || this_len > this.length) {
 				this_len = this.length;
 			}
@@ -949,7 +951,7 @@ var RevealMenu = window.RevealMenu || (function(){
 		};
 	}
 
-	var ieVersion = function() {
+	var ieVersion = function () {
 		var browser = /(msie) ([\w.]+)/.exec(window.navigator.userAgent.toLowerCase());
 		if (browser && browser[1] === "msie") {
 			return parseFloat(browser[2]);
