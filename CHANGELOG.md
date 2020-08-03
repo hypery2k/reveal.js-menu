@@ -1,3 +1,12 @@
+## [1.2.3](https://github.com/hypery2k/reveal-menu/compare/v1.2.2...v1.2.3) (2020-08-03)
+
+
+### Bug Fixes
+
+* **Init:** Make work with Reveal 3 ([351d9c9](https://github.com/hypery2k/reveal-menu/commit/351d9c9))
+
+
+
 ## [1.2.2](https://github.com/hypery2k/reveal-menu/compare/v1.2.1...v1.2.2) (2019-09-19)
 
 
