@@ -1,6 +1,6 @@
 {
   "name": "revealjs2-menu",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "A slideout menu for navigating reveal.js presentations",
   "scripts": {
     "clean": "echo \"Error: no clean specified\"",
